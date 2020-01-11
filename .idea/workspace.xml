@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a6032f66-f843-47ad-ae54-3fd9279bcefb" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="/usr/local/go" />
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="ProjectId" id="1WCWcvZV0Iompj3WnSzUfhggoYj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../abstractlogger/logger" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Test.gobench abstractlogger">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="abstractlogger" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestImports in user" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="abstractlogger" />
+      <working_directory value="$PROJECT_DIR$/../abstractlogger/user" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="user" />
+      <pattern value="^TestImports$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test_LogrusSimple in anylogger/pkg/logger" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="abstractlogger" />
+      <working_directory value="$PROJECT_DIR$/pkg/logger" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="anylogger/pkg/logger" />
+      <pattern value="^Test_LogrusSimple$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="abstractlogger" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="DIRECTORY" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gobench abstractlogger" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="abstractlogger" />
+      <working_directory value="$PROJECT_DIR$/../abstractlogger" />
+      <framework value="gobench" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/../abstractlogger" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gobench logger (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="abstractlogger" />
+      <working_directory value="$PROJECT_DIR$/../abstractlogger/logger" />
+      <framework value="gobench" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/../abstractlogger/logger" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gobench logger" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="abstractlogger" />
+      <working_directory value="$PROJECT_DIR$/pkg/logger" />
+      <framework value="gobench" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/pkg/logger" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.gobench abstractlogger" />
+        <item itemvalue="Go Test.TestImports in user" />
+        <item itemvalue="Go Test.gobench logger (1)" />
+        <item itemvalue="Go Test.gobench logger" />
+        <item itemvalue="Go Test.Test_LogrusSimple in anylogger/pkg/logger" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <proxy>direct</proxy>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1878" height="369" key="GridCell.Tab.0.bottom" timestamp="1578737371222">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="369" key="GridCell.Tab.0.bottom/1680.23.1920.1057/0.23.1680.1027@1680.23.1920.1057" timestamp="1578737371222" />
+    <state width="1878" height="369" key="GridCell.Tab.0.center" timestamp="1578737371221">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="369" key="GridCell.Tab.0.center/1680.23.1920.1057/0.23.1680.1027@1680.23.1920.1057" timestamp="1578737371221" />
+    <state width="1878" height="369" key="GridCell.Tab.0.left" timestamp="1578737371220">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="369" key="GridCell.Tab.0.left/1680.23.1920.1057/0.23.1680.1027@1680.23.1920.1057" timestamp="1578737371220" />
+    <state width="1878" height="369" key="GridCell.Tab.0.right" timestamp="1578737371221">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="369" key="GridCell.Tab.0.right/1680.23.1920.1057/0.23.1680.1027@1680.23.1920.1057" timestamp="1578737371221" />
+    <state x="2402" y="166" key="refactoring.ChangeSignatureDialog" timestamp="1578671552978">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2402" y="166" key="refactoring.ChangeSignatureDialog/1680.23.1920.1057/0.23.1680.1027@1680.23.1920.1057" timestamp="1578671552978" />
+    <state x="2305" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1578675568684">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2305" y="258" width="670" height="676" key="search.everywhere.popup/1680.23.1920.1057/0.23.1680.1027@1680.23.1920.1057" timestamp="1578675568684" />
+  </component>
+</project>
