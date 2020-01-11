@@ -1,4 +1,4 @@
-module abstractlogger
+module github.com/jensneuse/abstractlogger
 
 go 1.13
 
