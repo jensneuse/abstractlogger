@@ -11,7 +11,7 @@ func BenchmarkNoopLogger(b *testing.B){
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			logger.DebugString("foo","bar","baz")
+			logger.DebugField("foo",String("bar","baz"))
 		}
 	})
 }
