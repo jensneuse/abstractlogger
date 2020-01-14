@@ -1,86 +1,45 @@
 package abstractlogger
 
 import (
+	"bytes"
 	"github.com/sirupsen/logrus"
-	"io/ioutil"
+	"io"
 	"testing"
 )
 
-func BenchmarkWrappedLogrusLogger_String(b *testing.B) {
-	logrusLogger := &logrus.Logger{
-		Out:       ioutil.Discard,
+func logrusLogger(out io.Writer,level logrus.Level) *logrus.Logger {
+	return &logrus.Logger{
+		Out:       out,
 		Formatter: new(logrus.JSONFormatter),
 		Hooks:     make(logrus.LevelHooks),
-		Level:     logrus.DebugLevel,
+		Level:     level,
 	}
-
-	var logger Logger
-	logger = NewLogrusLogger(logrusLogger, DebugLevel)
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.DebugString("foo","bar","baz")
-		}
-	})
 }
 
-func BenchmarkWrappedLogrusLoggerLevelMiss_String(b *testing.B) {
-	logrusLogger := &logrus.Logger{
-		Out:       ioutil.Discard,
-		Formatter: new(logrus.JSONFormatter),
-		Hooks:     make(logrus.LevelHooks),
-		Level:     logrus.InfoLevel,
+func TestLogrusLogger(t *testing.T){
+
+	level := logrus.DebugLevel
+
+	var directOut bytes.Buffer
+	direct := logrusLogger(&directOut,level)
+
+	var wrappedOut bytes.Buffer
+	wrapped := logrusLogger(&wrappedOut,level)
+	indirect := NewLogrusLogger(wrapped,DebugLevel)
+
+	direct.WithField("foo","bar").Debug("baz")
+	indirect.DebugField("baz",String("foo","bar"))
+
+	direct.WithField("foo","bar").Info("baz")
+	indirect.InfoField("baz",String("foo","bar"))
+
+	direct.WithField("foo","bar").Warn("baz")
+	indirect.WarnField("baz",String("foo","bar"))
+
+	direct.WithField("foo","bar").Error("baz")
+	indirect.ErrorField("baz",String("foo","bar"))
+
+	if directOut.String() != wrappedOut.String() {
+		t.Fatal("must be the same")
 	}
-
-	var logger Logger
-	logger = NewLogrusLogger(logrusLogger, InfoLevel)
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.DebugString("foo","bar","baz")
-		}
-	})
-}
-
-func BenchmarkLogrusLogger_String(b *testing.B) {
-	logger := &logrus.Logger{
-		Out:       ioutil.Discard,
-		Formatter: new(logrus.JSONFormatter),
-		Hooks:     make(logrus.LevelHooks),
-		Level:     logrus.DebugLevel,
-	}
-
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.WithField("foo","bar").Debug("baz")
-		}
-	})
-}
-
-func BenchmarkLogrusLoggerLevelMiss_String(b *testing.B) {
-	logger := &logrus.Logger{
-		Out:       ioutil.Discard,
-		Formatter: new(logrus.JSONFormatter),
-		Hooks:     make(logrus.LevelHooks),
-		Level:     logrus.InfoLevel,
-	}
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.WithField("foo","bar").Debug("baz")
-		}
-	})
 }
