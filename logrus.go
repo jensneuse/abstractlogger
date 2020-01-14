@@ -31,11 +31,11 @@ func (l *LogrusLogger) fields(fields []Field) logrus.Fields {
 	return out
 }
 
-func (l *LogrusLogger) Debug(msg string) {
+func (l *LogrusLogger) Debug(msg string,fields ...Field) {
 	if !l.levelCheck.Check(DebugLevel) {
 		return
 	}
-	l.l.Debug(msg)
+	l.l.WithFields(l.fields(fields)).Debug(msg)
 }
 
 func (l *LogrusLogger) DebugField(msg string, field Field) {
@@ -101,10 +101,11 @@ func (l *LogrusLogger) DebugField6(msg string, field1 Field, field2 Field, field
 		Debug(msg)
 }
 
-func (l *LogrusLogger) Info(msg string) {
+func (l *LogrusLogger) Info(msg string,fields ...Field) {
 	if !l.levelCheck.Check(InfoLevel) {
 		return
 	}
+	l.l.WithFields(l.fields(fields)).Info(msg)
 }
 
 func (l *LogrusLogger) InfoField(msg string, field Field) {
@@ -170,11 +171,11 @@ func (l *LogrusLogger) InfoField6(msg string, field1 Field, field2 Field, field3
 		Info(msg)
 }
 
-func (l *LogrusLogger) Warn(msg string) {
+func (l *LogrusLogger) Warn(msg string,fields ...Field) {
 	if !l.levelCheck.Check(WarnLevel) {
 		return
 	}
-	l.l.Warn(msg)
+	l.l.WithFields(l.fields(fields)).Warn(msg)
 }
 
 func (l *LogrusLogger) WarnField(msg string, field Field) {
@@ -240,11 +241,11 @@ func (l *LogrusLogger) WarnField6(msg string, field1 Field, field2 Field, field3
 		Warn(msg)
 }
 
-func (l *LogrusLogger) Error(msg string) {
+func (l *LogrusLogger) Error(msg string,fields ...Field) {
 	if !l.levelCheck.Check(ErrorLevel) {
 		return
 	}
-	l.l.Error(msg)
+	l.l.WithFields(l.fields(fields)).Error(msg)
 }
 
 func (l *LogrusLogger) ErrorField(msg string, field Field) {
@@ -310,11 +311,11 @@ func (l *LogrusLogger) ErrorField6(msg string, field1 Field, field2 Field, field
 		Error(msg)
 }
 
-func (l *LogrusLogger) Fatal(msg string) {
+func (l *LogrusLogger) Fatal(msg string,fields ...Field) {
 	if !l.levelCheck.Check(FatalLevel) {
 		return
 	}
-	l.l.Fatal(msg)
+	l.l.WithFields(l.fields(fields)).Fatal(msg)
 }
 
 func (l *LogrusLogger) FatalField(msg string, field Field) {
@@ -380,11 +381,11 @@ func (l *LogrusLogger) FatalField6(msg string, field1 Field, field2 Field, field
 		Fatal(msg)
 }
 
-func (l *LogrusLogger) Panic(msg string) {
+func (l *LogrusLogger) Panic(msg string,fields ...Field) {
 	if !l.levelCheck.Check(PanicLevel) {
 		return
 	}
-	l.l.Panic(msg)
+	l.l.WithFields(l.fields(fields)).Panic(msg)
 }
 
 func (l *LogrusLogger) PanicField(msg string, field Field) {

@@ -18,13 +18,6 @@ type ZapLogger struct {
 	levelCheck LevelCheck
 }
 
-func (z *ZapLogger) Debug(msg string) {
-	if !z.levelCheck.Check(DebugLevel){
-		return
-	}
-	z.l.Debug(msg)
-}
-
 func (z *ZapLogger) field(field Field) zap.Field {
 	switch field.Kind {
 	case StringField:
@@ -38,6 +31,21 @@ func (z *ZapLogger) field(field Field) zap.Field {
 	default:
 		return zap.Skip()
 	}
+}
+
+func (z *ZapLogger) fields (fields []Field) []zap.Field {
+	out := make([]zap.Field,len(fields))
+	for i := range fields {
+		out[i] = z.field(fields[i])
+	}
+	return out
+}
+
+func (z *ZapLogger) Debug(msg string,fields ...Field) {
+	if !z.levelCheck.Check(DebugLevel){
+		return
+	}
+	z.l.Debug(msg,z.fields(fields)...)
 }
 
 func (z *ZapLogger) DebugField(msg string, field Field) {
@@ -107,20 +115,18 @@ func (z *ZapLogger) DebugField6(msg string, field1 Field, field2 Field, field3 F
 	)
 }
 
-func (z *ZapLogger) Info(msg string) {
+func (z *ZapLogger) Info(msg string,fields ...Field) {
 	if !z.levelCheck.Check(InfoLevel){
 		return
 	}
-	z.l.Info(msg)
+	z.l.Info(msg,z.fields(fields)...)
 }
 
 func (z *ZapLogger) InfoField(msg string, field Field) {
 	if !z.levelCheck.Check(InfoLevel){
 		return
 	}
-	z.l.Info(msg,
-		z.field(field),
-	)
+	z.l.Info(msg,z.field(field))
 }
 
 func (z *ZapLogger) InfoField2(msg string, field1 Field, field2 Field) {
@@ -183,11 +189,11 @@ func (z *ZapLogger) InfoField6(msg string, field1 Field, field2 Field, field3 Fi
 	)
 }
 
-func (z *ZapLogger) Warn(msg string) {
+func (z *ZapLogger) Warn(msg string,fields ...Field) {
 	if !z.levelCheck.Check(WarnLevel){
 		return
 	}
-	z.l.Warn(msg)
+	z.l.Warn(msg,z.fields(fields)...)
 }
 
 func (z *ZapLogger) WarnField(msg string, field Field) {
@@ -259,11 +265,11 @@ func (z *ZapLogger) WarnField6(msg string, field1 Field, field2 Field, field3 Fi
 	)
 }
 
-func (z *ZapLogger) Error(msg string) {
+func (z *ZapLogger) Error(msg string,fields ...Field) {
 	if !z.levelCheck.Check(ErrorLevel){
 		return
 	}
-	z.l.Error(msg)
+	z.l.Error(msg,z.fields(fields)...)
 }
 
 func (z *ZapLogger) ErrorField(msg string, field Field) {
@@ -335,11 +341,11 @@ func (z *ZapLogger) ErrorField6(msg string, field1 Field, field2 Field, field3 F
 	)
 }
 
-func (z *ZapLogger) Fatal(msg string) {
+func (z *ZapLogger) Fatal(msg string,fields ...Field) {
 	if !z.levelCheck.Check(FatalLevel){
 		return
 	}
-	z.l.Fatal(msg)
+	z.l.Fatal(msg,z.fields(fields)...)
 }
 
 func (z *ZapLogger) FatalField(msg string, field Field) {
@@ -411,11 +417,11 @@ func (z *ZapLogger) FatalField6(msg string, field1 Field, field2 Field, field3 F
 	)
 }
 
-func (z *ZapLogger) Panic(msg string) {
+func (z *ZapLogger) Panic(msg string,fields ...Field) {
 	if !z.levelCheck.Check(PanicLevel){
 		return
 	}
-	z.l.Panic(msg)
+	z.l.Panic(msg,z.fields(fields)...)
 }
 
 func (z *ZapLogger) PanicField(msg string, field Field) {

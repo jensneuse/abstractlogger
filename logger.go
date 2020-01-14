@@ -15,8 +15,11 @@ type Logger interface {
 // NoopLogger satisfies the Logger interface while doing nothing
 var NoopLogger Logger = Noop{}
 
+// DebugLogger is for logging debug messages
 type DebugLogger interface {
-	Debug(msg string)
+	// Debug is for logging debug information including variadic Fields
+	// use the non variadic methods in case you'd like to trade usability for performance
+	Debug(msg string,fields ...Field)
 	DebugField(msg string, field Field)
 	DebugField2(msg string, field1 Field, field2 Field)
 	DebugField3(msg string, field1 Field, field2 Field, field3 Field)
@@ -25,8 +28,11 @@ type DebugLogger interface {
 	DebugField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field)
 }
 
+// ErrorLogger is for logging errors
 type ErrorLogger interface {
-	Error(msg string)
+	// Error is for logging errors including variadic Fields
+	// use the non variadic methods in case you'd like to trade usability for performance
+	Error(msg string,fields ...Field)
 	ErrorField(msg string, field Field)
 	ErrorField2(msg string, field1 Field, field2 Field)
 	ErrorField3(msg string, field1 Field, field2 Field, field3 Field)
@@ -36,7 +42,9 @@ type ErrorLogger interface {
 }
 
 type FatalLogger interface {
-	Fatal(msg string)
+	// Fatal is for logging a fatal error including variadic Fields
+	// use the non variadic methods in case you'd like to trade usability for performance
+	Fatal(msg string,fields ...Field)
 	FatalField(msg string, field Field)
 	FatalField2(msg string, field1 Field, field2 Field)
 	FatalField3(msg string, field1 Field, field2 Field, field3 Field)
@@ -46,7 +54,9 @@ type FatalLogger interface {
 }
 
 type InfoLogger interface {
-	Info(msg string)
+	// Info is for logging info including variadic Fields
+	// use the non variadic methods in case you'd like to trade usability for performance
+	Info(msg string,fields ...Field)
 	InfoField(msg string, field Field)
 	InfoField2(msg string, field1 Field, field2 Field)
 	InfoField3(msg string, field1 Field, field2 Field, field3 Field)
@@ -56,7 +66,9 @@ type InfoLogger interface {
 }
 
 type PanicLogger interface {
-	Panic(msg string)
+	// Panic is for logging a panic including variadic Fields
+	// use the non variadic methods in case you'd like to trade usability for performance
+	Panic(msg string,fields ...Field)
 	PanicField(msg string, field Field)
 	PanicField2(msg string, field1 Field, field2 Field)
 	PanicField3(msg string, field1 Field, field2 Field, field3 Field)
@@ -66,7 +78,9 @@ type PanicLogger interface {
 }
 
 type WarnLogger interface {
-	Warn(msg string)
+	// Warn is for logging warnings including variadic Fields
+	// use the non variadic methods in case you'd like to trade usability for performance
+	Warn(msg string,fields ...Field)
 	WarnField(msg string, field Field)
 	WarnField2(msg string, field1 Field, field2 Field)
 	WarnField3(msg string, field1 Field, field2 Field, field3 Field)
@@ -75,10 +89,9 @@ type WarnLogger interface {
 	WarnField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field)
 }
 
-type Noop struct {
-}
+type Noop struct {}
 
-func (_ Noop) Debug(msg string) {
+func (_ Noop) Debug(msg string, fields ...Field) {
 	
 }
 
@@ -106,7 +119,7 @@ func (_ Noop) DebugField6(msg string, field1 Field, field2 Field, field3 Field, 
 	
 }
 
-func (_ Noop) Info(msg string) {
+func (_ Noop) Info(msg string, fields ...Field) {
 	
 }
 
@@ -134,7 +147,7 @@ func (_ Noop) InfoField6(msg string, field1 Field, field2 Field, field3 Field, f
 	
 }
 
-func (_ Noop) Warn(msg string) {
+func (_ Noop) Warn(msg string, fields ...Field) {
 	
 }
 
@@ -162,7 +175,7 @@ func (_ Noop) WarnField6(msg string, field1 Field, field2 Field, field3 Field, f
 	
 }
 
-func (_ Noop) Error(msg string) {
+func (_ Noop) Error(msg string, fields ...Field) {
 	
 }
 
@@ -190,7 +203,7 @@ func (_ Noop) ErrorField6(msg string, field1 Field, field2 Field, field3 Field, 
 	
 }
 
-func (_ Noop) Fatal(msg string) {
+func (_ Noop) Fatal(msg string, fields ...Field) {
 	
 }
 
@@ -218,7 +231,7 @@ func (_ Noop) FatalField6(msg string, field1 Field, field2 Field, field3 Field, 
 	
 }
 
-func (_ Noop) Panic(msg string) {
+func (_ Noop) Panic(msg string, fields ...Field) {
 	
 }
 
