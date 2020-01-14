@@ -1,129 +1,53 @@
 package abstractlogger
 
 import (
+	"bytes"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"go.uber.org/zap/zaptest"
 	"testing"
+	"time"
 )
 
-func newZapLogger(lvl zapcore.Level) *zap.Logger {
+func zapLogger(lvl zapcore.Level, syncer zapcore.WriteSyncer) *zap.Logger {
 	ec := zap.NewProductionEncoderConfig()
 	ec.EncodeDuration = zapcore.NanosDurationEncoder
-	ec.EncodeTime = zapcore.EpochNanosTimeEncoder
+	ec.EncodeTime = ZeroTimeEncoder
 	enc := zapcore.NewJSONEncoder(ec)
 	return zap.New(zapcore.NewCore(
 		enc,
-		&zaptest.Discarder{},
+		syncer,
 		lvl,
 	))
 }
 
-func BenchmarkWrappedZapLoggerString(b *testing.B) {
-	var logger Logger
-	logger = NewZapLogger(newZapLogger(zapcore.DebugLevel), DebugLevel)
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.DebugString("foo", "bar", "baz")
-		}
-	})
+func ZeroTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+	enc.AppendInt64(0)
 }
 
-func BenchmarkWrappedZapLoggerStringNonParallel(b *testing.B) {
-	var logger Logger
-	logger = NewZapLogger(newZapLogger(zapcore.DebugLevel), DebugLevel)
+func TestZapLogger(t *testing.T) {
 
-	b.ResetTimer()
-	b.ReportAllocs()
+	level := zapcore.DebugLevel
 
-	for i := 0; i < b.N; i++ {
-		logger.DebugString("foo", "bar", "baz")
+	var directOut bytes.Buffer
+	direct := zapLogger(level,zapcore.AddSync(&directOut))
+
+	var wrappedOut bytes.Buffer
+	wrapped := zapLogger(level,zapcore.AddSync(&wrappedOut))
+	indirect := NewZapLogger(wrapped, DebugLevel)
+
+	direct.Debug("baz",zap.String("foo","bar"))
+	indirect.DebugField("baz", String("foo", "bar"))
+
+	direct.Info("baz",zap.String("foo","bar"))
+	indirect.InfoField("baz", String("foo", "bar"))
+
+	direct.Warn("baz",zap.String("foo","bar"))
+	indirect.WarnField("baz", String("foo", "bar"))
+
+	direct.Error("baz",zap.String("foo","bar"))
+	indirect.ErrorField("baz", String("foo", "bar"))
+
+	if directOut.String() != wrappedOut.String() {
+		t.Fatalf("direct:\n%s\n\nindirect:\n%s\n",directOut.String(),wrappedOut.String())
 	}
-}
-
-func BenchmarkWrappedZapLoggerLevelMiss(b *testing.B) {
-	var logger Logger
-	logger = NewZapLogger(newZapLogger(zapcore.DebugLevel), InfoLevel)
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.DebugString("foo", "bar", "baz")
-		}
-	})
-}
-
-func BenchmarkWrappedZapLoggerBytes(b *testing.B) {
-	var logger Logger
-	logger = NewZapLogger(newZapLogger(zapcore.DebugLevel), DebugLevel)
-
-	value := []byte("baz")
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.DebugByteString("foo", "bar", value)
-		}
-	})
-}
-
-func BenchmarkWrappedZapLoggerLevelMissBytes(b *testing.B) {
-	var logger Logger
-	logger = NewZapLogger(newZapLogger(zapcore.InfoLevel), InfoLevel)
-
-	value := []byte("baz")
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.DebugByteString("foo", "bar", value)
-		}
-	})
-}
-
-func BenchmarkZapString(b *testing.B) {
-	logger := newZapLogger(zapcore.DebugLevel)
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.Debug("foo", zap.String("bar", "baz"))
-		}
-	})
-}
-
-func BenchmarkZapStringNonParallel(b *testing.B) {
-	logger := newZapLogger(zapcore.DebugLevel)
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	for i := 0; i < b.N; i++ {
-		logger.Debug("foo", zap.String("bar", "baz"))
-	}
-}
-
-func BenchmarkZapLevelMiss(b *testing.B) {
-	logger := newZapLogger(zapcore.InfoLevel)
-
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			logger.Debug("foo", zap.String("bar", "baz"))
-		}
-	})
 }
