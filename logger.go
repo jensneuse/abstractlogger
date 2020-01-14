@@ -16,203 +16,232 @@ type Logger interface {
 var NoopLogger Logger = Noop{}
 
 type DebugLogger interface {
-	DebugString(msg string, key, value string)
-	DebugInt(msg string, key string, value int)
-	DebugInt64(msg string, key string, value int64)
-	DebugFloat32(msg string, key string, value float32)
-	DebugFloat64(msg string, key string, value float64)
-	DebugByteString(msg string, key string, value []byte)
+	Debug(msg string)
+	DebugField(msg string, field Field)
+	DebugField2(msg string, field1 Field, field2 Field)
+	DebugField3(msg string, field1 Field, field2 Field, field3 Field)
+	DebugField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field)
+	DebugField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field)
+	DebugField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field)
 }
 
 type ErrorLogger interface {
-	ErrorString(msg string, key, value string)
-	ErrorInt(msg string, key string, value int)
-	ErrorInt64(msg string, key string, value int64)
-	ErrorFloat32(msg string, key string, value float32)
-	ErrorFloat64(msg string, key string, value float64)
-	ErrorByteString(msg string, key string, value []byte)
+	Error(msg string)
+	ErrorField(msg string, field Field)
+	ErrorField2(msg string, field1 Field, field2 Field)
+	ErrorField3(msg string, field1 Field, field2 Field, field3 Field)
+	ErrorField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field)
+	ErrorField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field)
+	ErrorField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field)
 }
 
 type FatalLogger interface {
-	FatalString(msg string, key, value string)
-	FatalInt(msg string, key string, value int)
-	FatalInt64(msg string, key string, value int64)
-	FatalFloat32(msg string, key string, value float32)
-	FatalFloat64(msg string, key string, value float64)
-	FatalByteString(msg string, key string, value []byte)
+	Fatal(msg string)
+	FatalField(msg string, field Field)
+	FatalField2(msg string, field1 Field, field2 Field)
+	FatalField3(msg string, field1 Field, field2 Field, field3 Field)
+	FatalField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field)
+	FatalField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field)
+	FatalField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field)
 }
 
 type InfoLogger interface {
-	InfoString(msg string, key, value string)
-	InfoInt(msg string, key string, value int)
-	InfoInt64(msg string, key string, value int64)
-	InfoFloat32(msg string, key string, value float32)
-	InfoFloat64(msg string, key string, value float64)
-	InfoByteString(msg string, key string, value []byte)
+	Info(msg string)
+	InfoField(msg string, field Field)
+	InfoField2(msg string, field1 Field, field2 Field)
+	InfoField3(msg string, field1 Field, field2 Field, field3 Field)
+	InfoField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field)
+	InfoField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field)
+	InfoField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field)
 }
 
 type PanicLogger interface {
-	PanicString(msg string, key, value string)
-	PanicInt(msg string, key string, value int)
-	PanicInt64(msg string, key string, value int64)
-	PanicFloat32(msg string, key string, value float32)
-	PanicFloat64(msg string, key string, value float64)
-	PanicByteString(msg string, key string, value []byte)
+	Panic(msg string)
+	PanicField(msg string, field Field)
+	PanicField2(msg string, field1 Field, field2 Field)
+	PanicField3(msg string, field1 Field, field2 Field, field3 Field)
+	PanicField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field)
+	PanicField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field)
+	PanicField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field)
 }
 
 type WarnLogger interface {
-	WarnString(msg string, key, value string)
-	WarnInt(msg string, key string, value int)
-	WarnInt64(msg string, key string, value int64)
-	WarnFloat32(msg string, key string, value float32)
-	WarnFloat64(msg string, key string, value float64)
-	WarnByteString(msg string, key string, value []byte)
+	Warn(msg string)
+	WarnField(msg string, field Field)
+	WarnField2(msg string, field1 Field, field2 Field)
+	WarnField3(msg string, field1 Field, field2 Field, field3 Field)
+	WarnField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field)
+	WarnField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field)
+	WarnField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field)
 }
 
 type Noop struct {
+}
+
+func (_ Noop) Debug(msg string) {
 	
 }
 
-func (_ Noop) InfoString(msg string, key, value string) {
+func (_ Noop) DebugField(msg string, field Field) {
 	
 }
 
-func (_ Noop) InfoInt(msg string, key string, value int) {
+func (_ Noop) DebugField2(msg string, field1 Field, field2 Field) {
 	
 }
 
-func (_ Noop) InfoInt64(msg string, key string, value int64) {
+func (_ Noop) DebugField3(msg string, field1 Field, field2 Field, field3 Field) {
 	
 }
 
-func (_ Noop) InfoFloat32(msg string, key string, value float32) {
+func (_ Noop) DebugField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field) {
 	
 }
 
-func (_ Noop) InfoFloat64(msg string, key string, value float64) {
+func (_ Noop) DebugField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field) {
 	
 }
 
-func (_ Noop) InfoByteString(msg string, key string, value []byte) {
+func (_ Noop) DebugField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field) {
 	
 }
 
-func (_ Noop) ErrorString(msg string, key, value string) {
+func (_ Noop) Info(msg string) {
 	
 }
 
-func (_ Noop) ErrorInt(msg string, key string, value int) {
+func (_ Noop) InfoField(msg string, field Field) {
 	
 }
 
-func (_ Noop) ErrorInt64(msg string, key string, value int64) {
+func (_ Noop) InfoField2(msg string, field1 Field, field2 Field) {
 	
 }
 
-func (_ Noop) ErrorFloat32(msg string, key string, value float32) {
+func (_ Noop) InfoField3(msg string, field1 Field, field2 Field, field3 Field) {
 	
 }
 
-func (_ Noop) ErrorFloat64(msg string, key string, value float64) {
+func (_ Noop) InfoField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field) {
 	
 }
 
-func (_ Noop) ErrorByteString(msg string, key string, value []byte) {
+func (_ Noop) InfoField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field) {
 	
 }
 
-func (_ Noop) FatalString(msg string, key, value string) {
+func (_ Noop) InfoField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field) {
 	
 }
 
-func (_ Noop) FatalInt(msg string, key string, value int) {
+func (_ Noop) Warn(msg string) {
 	
 }
 
-func (_ Noop) FatalInt64(msg string, key string, value int64) {
+func (_ Noop) WarnField(msg string, field Field) {
 	
 }
 
-func (_ Noop) FatalFloat32(msg string, key string, value float32) {
+func (_ Noop) WarnField2(msg string, field1 Field, field2 Field) {
 	
 }
 
-func (_ Noop) FatalFloat64(msg string, key string, value float64) {
+func (_ Noop) WarnField3(msg string, field1 Field, field2 Field, field3 Field) {
 	
 }
 
-func (_ Noop) FatalByteString(msg string, key string, value []byte) {
+func (_ Noop) WarnField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field) {
 	
 }
 
-func (_ Noop) PanicString(msg string, key, value string) {
+func (_ Noop) WarnField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field) {
 	
 }
 
-func (_ Noop) PanicInt(msg string, key string, value int) {
+func (_ Noop) WarnField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field) {
 	
 }
 
-func (_ Noop) PanicInt64(msg string, key string, value int64) {
+func (_ Noop) Error(msg string) {
 	
 }
 
-func (_ Noop) PanicFloat32(msg string, key string, value float32) {
+func (_ Noop) ErrorField(msg string, field Field) {
 	
 }
 
-func (_ Noop) PanicFloat64(msg string, key string, value float64) {
+func (_ Noop) ErrorField2(msg string, field1 Field, field2 Field) {
 	
 }
 
-func (_ Noop) PanicByteString(msg string, key string, value []byte) {
+func (_ Noop) ErrorField3(msg string, field1 Field, field2 Field, field3 Field) {
 	
 }
 
-func (_ Noop) WarnString(msg string, key, value string) {
+func (_ Noop) ErrorField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field) {
 	
 }
 
-func (_ Noop) WarnInt(msg string, key string, value int) {
+func (_ Noop) ErrorField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field) {
 	
 }
 
-func (_ Noop) WarnInt64(msg string, key string, value int64) {
+func (_ Noop) ErrorField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field) {
 	
 }
 
-func (_ Noop) WarnFloat32(msg string, key string, value float32) {
+func (_ Noop) Fatal(msg string) {
 	
 }
 
-func (_ Noop) WarnFloat64(msg string, key string, value float64) {
+func (_ Noop) FatalField(msg string, field Field) {
 	
 }
 
-func (_ Noop) WarnByteString(msg string, key string, value []byte) {
+func (_ Noop) FatalField2(msg string, field1 Field, field2 Field) {
 	
 }
 
-func (_ Noop) DebugString(msg string, key, value string) {
+func (_ Noop) FatalField3(msg string, field1 Field, field2 Field, field3 Field) {
 	
 }
 
-func (_ Noop) DebugInt(msg string, key string, value int) {
+func (_ Noop) FatalField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field) {
 	
 }
 
-func (_ Noop) DebugInt64(msg string, key string, value int64) {
+func (_ Noop) FatalField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field) {
 	
 }
 
-func (_ Noop) DebugFloat32(msg string, key string, value float32) {
+func (_ Noop) FatalField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field) {
 	
 }
 
-func (_ Noop) DebugFloat64(msg string, key string, value float64) {
+func (_ Noop) Panic(msg string) {
 	
 }
 
-func (_ Noop) DebugByteString(msg string, key string, value []byte) {
+func (_ Noop) PanicField(msg string, field Field) {
+	
+}
+
+func (_ Noop) PanicField2(msg string, field1 Field, field2 Field) {
+	
+}
+
+func (_ Noop) PanicField3(msg string, field1 Field, field2 Field, field3 Field) {
+	
+}
+
+func (_ Noop) PanicField4(msg string, field1 Field, field2 Field, field3 Field, field4 Field) {
+	
+}
+
+func (_ Noop) PanicField5(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field) {
+	
+}
+
+func (_ Noop) PanicField6(msg string, field1 Field, field2 Field, field3 Field, field4 Field, field5 Field, field6 Field) {
 	
 }
