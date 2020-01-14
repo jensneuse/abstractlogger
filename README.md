@@ -38,3 +38,8 @@ BenchmarkNoopLogger/log_level_valid/non_variadic/noop-16               	42662847
 BenchmarkNoopLogger/log_level_valid/non_variadic/abstract_zap-16       	  8872508	       144 ns/op	     192 B/op	       1 allocs/op
 BenchmarkNoopLogger/log_level_valid/non_variadic/abstract_logrus-16    	   154567	      7034 ns/op	    2786 B/op	      41 allocs/op
 ```
+
+The non variadic version improves the performance for non valid log levels by 13.5x (zap) and 95x (logrus).
+There's no overhead for the non variadic zap version using the abstract logger in case the log level is valid.
+
+So, using this library with zap makes your logging not only more abstract but also increases performance in case you don't run DebugLevel in production.
