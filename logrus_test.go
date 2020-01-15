@@ -43,6 +43,12 @@ func TestLogrusLogger(t *testing.T) {
 	direct.WithField("foo", "bar").WithError(errors.New("err")).Error("baz")
 	indirect.Error("baz", String("foo", "bar"), Error(errors.New("err")))
 
+	direct.Debug("foo")
+	direct.Debugf("foo %s","bar")
+
+	debugLogger := indirect.LevelLogger(DebugLevel)
+	debugLogger.Println("foo")
+	debugLogger.Printf("foo %s","bar")
 
 	if directOut.String() != wrappedOut.String() {
 		t.Fatalf("direct:\n%s\nindirect:\n%s\n",directOut.String(),wrappedOut.String())

@@ -18,6 +18,13 @@ type ZapLogger struct {
 	levelCheck LevelCheck
 }
 
+func (z *ZapLogger) LevelLogger(level Level) LevelLogger {
+	return &ZapLevelLogger{
+		l:     z.l.Sugar(),
+		level: level,
+	}
+}
+
 func (z *ZapLogger) field(field Field) zap.Field {
 	switch field.kind {
 	case StringField:
@@ -31,9 +38,9 @@ func (z *ZapLogger) field(field Field) zap.Field {
 	case ErrorField:
 		return zap.Error(field.errorValue)
 	case NamedErrorField:
-		return zap.NamedError(field.key,field.errorValue)
+		return zap.NamedError(field.key, field.errorValue)
 	case StringsField:
-		return zap.Strings(field.key,field.stringsValue)
+		return zap.Strings(field.key, field.stringsValue)
 	default:
 		return zap.Any(field.key, field.interfaceValue)
 	}
@@ -87,4 +94,43 @@ func (z *ZapLogger) Panic(msg string, fields ...Field) {
 		return
 	}
 	z.l.Panic(msg, z.fields(fields)...)
+}
+
+type ZapLevelLogger struct {
+	l     *zap.SugaredLogger
+	level Level
+}
+
+func (z *ZapLevelLogger) Println(v ...interface{}) {
+	switch z.level {
+	case DebugLevel:
+		z.l.Debug(v...)
+	case InfoLevel:
+		z.l.Info(v...)
+	case WarnLevel:
+		z.l.Warn(v...)
+	case ErrorLevel:
+		z.l.Error(v...)
+	case FatalLevel:
+		z.l.Fatal(v...)
+	case PanicLevel:
+		z.l.Panic(v...)
+	}
+}
+
+func (z *ZapLevelLogger) Printf(format string, v ...interface{}) {
+	switch z.level {
+	case DebugLevel:
+		z.l.Debugf(format, v...)
+	case InfoLevel:
+		z.l.Infof(format, v...)
+	case WarnLevel:
+		z.l.Warnf(format, v...)
+	case ErrorLevel:
+		z.l.Errorf(format, v...)
+	case FatalLevel:
+		z.l.Fatalf(format, v...)
+	case PanicLevel:
+		z.l.Panicf(format, v...)
+	}
 }

@@ -8,6 +8,12 @@ type Logger interface {
 	ErrorLogger
 	FatalLogger
 	PanicLogger
+	LevelLogger(level Level) LevelLogger
+}
+
+type LevelLogger interface {
+	Println(v ...interface{})
+	Printf(format string, v ...interface{})
 }
 
 // NoopLogger satisfies the Logger interface while doing nothing
@@ -37,7 +43,21 @@ type WarnLogger interface {
 	Warn(msg string,fields ...Field)
 }
 
+type LevelNoop struct {}
+
+func (_ LevelNoop) Println(v ...interface{}) {
+	
+}
+
+func (_ LevelNoop) Printf(format string, v ...interface{}) {
+	
+}
+
 type Noop struct {}
+
+func (_ Noop) LevelLogger(level Level) LevelLogger {
+	return LevelNoop{}
+}
 
 func (_ Noop) Debug(msg string, fields ...Field) {
 	
