@@ -28,16 +28,16 @@ func TestLogrusLogger(t *testing.T){
 	indirect := NewLogrusLogger(wrapped,DebugLevel)
 
 	direct.WithField("foo","bar").Debug("baz")
-	indirect.DebugField("baz",String("foo","bar"))
+	indirect.Debug("baz",String("foo","bar"))
 
 	direct.WithField("foo","bar").Info("baz")
-	indirect.InfoField("baz",String("foo","bar"))
+	indirect.Info("baz",String("foo","bar"))
 
 	direct.WithField("foo","bar").Warn("baz")
-	indirect.WarnField("baz",String("foo","bar"))
+	indirect.Warn("baz",String("foo","bar"))
 
 	direct.WithField("foo","bar").Error("baz")
-	indirect.ErrorField("baz",String("foo","bar"))
+	indirect.Error("baz",String("foo","bar"))
 
 	if directOut.String() != wrappedOut.String() {
 		t.Fatal("must be the same")

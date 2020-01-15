@@ -1,29 +1,12 @@
 package abstractlogger
 
 type Field struct {
-	Kind           FieldKind
-	Key            string
-	StringValue    string
-	IntValue       int64
-	ByteValue      []byte
-}
-
-func (f Field) InterfaceValue () interface{} {
-	switch f.Kind {
-	case StringField:
-		return f.StringValue
-	case IntField:
-		return f.IntValue
-	case BoolField:
-		if f.IntValue == 0 {
-			return false
-		}
-		return true
-	case ByteStringField:
-		return f.ByteValue
-	default:
-		return nil
-	}
+	Kind        FieldKind
+	Key         string
+	StringValue string
+	IntValue    int64
+	ByteValue   []byte
+	IfaceValue  interface{}
 }
 
 type FieldKind int
@@ -33,7 +16,16 @@ const (
 	IntField
 	BoolField
 	ByteStringField
+	InterfaceField
 )
+
+func Any(key string,value interface{}) Field {
+	return Field{
+		Kind:        InterfaceField,
+		Key:         key,
+		IfaceValue:  value,
+	}
+}
 
 func String(key, value string) Field {
 	return Field{

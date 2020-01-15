@@ -36,16 +36,16 @@ func TestZapLogger(t *testing.T) {
 	indirect := NewZapLogger(wrapped, DebugLevel)
 
 	direct.Debug("baz",zap.String("foo","bar"))
-	indirect.DebugField("baz", String("foo", "bar"))
+	indirect.Debug("baz", String("foo", "bar"))
 
 	direct.Info("baz",zap.String("foo","bar"))
-	indirect.InfoField("baz", String("foo", "bar"))
+	indirect.Info("baz", String("foo", "bar"))
 
 	direct.Warn("baz",zap.String("foo","bar"))
-	indirect.WarnField("baz", String("foo", "bar"))
+	indirect.Warn("baz", String("foo", "bar"))
 
 	direct.Error("baz",zap.String("foo","bar"))
-	indirect.ErrorField("baz", String("foo", "bar"))
+	indirect.Error("baz", String("foo", "bar"))
 
 	if directOut.String() != wrappedOut.String() {
 		t.Fatalf("direct:\n%s\n\nindirect:\n%s\n",directOut.String(),wrappedOut.String())
