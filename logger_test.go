@@ -1,6 +1,7 @@
 package abstractlogger
 
 import (
+	"errors"
 	"github.com/sirupsen/logrus"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -294,6 +295,24 @@ func BenchmarkNoopLogger(b *testing.B) {
 					}
 				})
 			})
+		})
+	})
+
+	b.Run("zap common use case", func(b *testing.B) {
+
+		err := errors.New("foo")
+
+		b.ResetTimer()
+		b.ReportAllocs()
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				abstractZap.Debug("foo",
+					String("bar", "baz"),
+					Bool("bool", true),
+					Int("int", 123),
+					Error(err),
+				)
+			}
 		})
 	})
 }
