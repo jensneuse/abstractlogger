@@ -28,6 +28,10 @@ func (z *ZapLogger) field(field Field) zap.Field {
 		return zap.Bool(field.Key, field.IntValue != 0)
 	case ByteStringField:
 		return zap.ByteString(field.Key, field.ByteValue)
+	case ErrorField:
+		return zap.Error(field.ErrorValue)
+	case NamedErrorField:
+		return zap.NamedError(field.Key,field.ErrorValue)
 	default:
 		return zap.Any(field.Key, field.IfaceValue)
 	}

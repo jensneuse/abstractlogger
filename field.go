@@ -7,6 +7,7 @@ type Field struct {
 	IntValue    int64
 	ByteValue   []byte
 	IfaceValue  interface{}
+	ErrorValue  error
 }
 
 type FieldKind int
@@ -17,13 +18,31 @@ const (
 	BoolField
 	ByteStringField
 	InterfaceField
+	ErrorField
+	NamedErrorField
 )
 
-func Any(key string,value interface{}) Field {
+func Any(key string, value interface{}) Field {
 	return Field{
-		Kind:        InterfaceField,
-		Key:         key,
-		IfaceValue:  value,
+		Kind:       InterfaceField,
+		Key:        key,
+		IfaceValue: value,
+	}
+}
+
+func Error(err error) Field {
+	return Field{
+		Kind:       ErrorField,
+		Key:        "error",
+		ErrorValue: err,
+	}
+}
+
+func NamedError(key string, err error) Field {
+	return Field{
+		Kind:       NamedErrorField,
+		Key:        key,
+		ErrorValue: err,
 	}
 }
 

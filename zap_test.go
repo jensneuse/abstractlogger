@@ -2,6 +2,7 @@ package abstractlogger
 
 import (
 	"bytes"
+	"errors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"testing"
@@ -44,8 +45,8 @@ func TestZapLogger(t *testing.T) {
 	direct.Warn("baz",zap.String("foo","bar"))
 	indirect.Warn("baz", String("foo", "bar"))
 
-	direct.Error("baz",zap.String("foo","bar"))
-	indirect.Error("baz", String("foo", "bar"))
+	direct.Error("baz",zap.String("foo","bar"),zap.Error(errors.New("err")))
+	indirect.Error("baz", String("foo", "bar"),Error(errors.New("err")))
 
 	if directOut.String() != wrappedOut.String() {
 		t.Fatalf("direct:\n%s\n\nindirect:\n%s\n",directOut.String(),wrappedOut.String())

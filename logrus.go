@@ -30,6 +30,8 @@ func (l *LogrusLogger) fields(fields []Field) logrus.Fields {
 			out[fields[i].Key] = fields[i].IntValue
 		case BoolField:
 			out[fields[i].Key] = fields[i].IntValue != 0
+		case ErrorField,NamedErrorField:
+			out[fields[i].Key] = fields[i].ErrorValue
 		default:
 			out[fields[i].Key] = fields[i].IfaceValue
 		}
