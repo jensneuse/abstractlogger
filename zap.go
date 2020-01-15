@@ -19,21 +19,23 @@ type ZapLogger struct {
 }
 
 func (z *ZapLogger) field(field Field) zap.Field {
-	switch field.Kind {
+	switch field.kind {
 	case StringField:
-		return zap.String(field.Key, field.StringValue)
+		return zap.String(field.key, field.stringValue)
 	case IntField:
-		return zap.Int(field.Key, int(field.IntValue))
+		return zap.Int(field.key, int(field.intValue))
 	case BoolField:
-		return zap.Bool(field.Key, field.IntValue != 0)
+		return zap.Bool(field.key, field.intValue != 0)
 	case ByteStringField:
-		return zap.ByteString(field.Key, field.ByteValue)
+		return zap.ByteString(field.key, field.byteValue)
 	case ErrorField:
-		return zap.Error(field.ErrorValue)
+		return zap.Error(field.errorValue)
 	case NamedErrorField:
-		return zap.NamedError(field.Key,field.ErrorValue)
+		return zap.NamedError(field.key,field.errorValue)
+	case StringsField:
+		return zap.Strings(field.key,field.stringsValue)
 	default:
-		return zap.Any(field.Key, field.IfaceValue)
+		return zap.Any(field.key, field.interfaceValue)
 	}
 }
 

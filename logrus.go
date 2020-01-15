@@ -21,19 +21,21 @@ func NewLogrusLogger(l *logrus.Logger, level Level) *LogrusLogger {
 func (l *LogrusLogger) fields(fields []Field) logrus.Fields {
 	out := make(logrus.Fields, len(fields))
 	for i := range fields {
-		switch fields[i].Kind {
+		switch fields[i].kind {
 		case StringField:
-			out[fields[i].Key] = fields[i].StringValue
+			out[fields[i].key] = fields[i].stringValue
 		case ByteStringField:
-			out[fields[i].Key] = string(fields[i].ByteValue)
+			out[fields[i].key] = string(fields[i].byteValue)
 		case IntField:
-			out[fields[i].Key] = fields[i].IntValue
+			out[fields[i].key] = fields[i].intValue
 		case BoolField:
-			out[fields[i].Key] = fields[i].IntValue != 0
+			out[fields[i].key] = fields[i].intValue != 0
 		case ErrorField,NamedErrorField:
-			out[fields[i].Key] = fields[i].ErrorValue
+			out[fields[i].key] = fields[i].errorValue
+		case StringsField:
+			out[fields[i].key] = fields[i].stringsValue
 		default:
-			out[fields[i].Key] = fields[i].IfaceValue
+			out[fields[i].key] = fields[i].interfaceValue
 		}
 	}
 	return out

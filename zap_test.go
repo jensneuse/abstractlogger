@@ -42,6 +42,9 @@ func TestZapLogger(t *testing.T) {
 	direct.Info("baz",zap.String("foo","bar"))
 	indirect.Info("baz", String("foo", "bar"))
 
+	direct.Debug("baz",zap.Strings("foo",[]string{"foo","bar"}))
+	indirect.Debug("baz", Strings("foo", []string{"foo","bar"}))
+
 	direct.Warn("baz",zap.String("foo","bar"))
 	indirect.Warn("baz", String("foo", "bar"))
 

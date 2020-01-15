@@ -31,6 +31,9 @@ func TestLogrusLogger(t *testing.T) {
 	direct.WithField("foo", "bar").Debug("baz")
 	indirect.Debug("baz", String("foo", "bar"))
 
+	direct.WithField("foo", []string{"foo","bar"}).Debug("baz")
+	indirect.Debug("baz", Strings("foo", []string{"foo","bar"}))
+
 	direct.WithField("foo", "bar").Info("baz")
 	indirect.Info("baz", String("foo", "bar"))
 
@@ -39,6 +42,7 @@ func TestLogrusLogger(t *testing.T) {
 
 	direct.WithField("foo", "bar").WithError(errors.New("err")).Error("baz")
 	indirect.Error("baz", String("foo", "bar"), Error(errors.New("err")))
+
 
 	if directOut.String() != wrappedOut.String() {
 		t.Fatalf("direct:\n%s\nindirect:\n%s\n",directOut.String(),wrappedOut.String())

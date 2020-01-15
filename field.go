@@ -1,19 +1,21 @@
 package abstractlogger
 
 type Field struct {
-	Kind        FieldKind
-	Key         string
-	StringValue string
-	IntValue    int64
-	ByteValue   []byte
-	IfaceValue  interface{}
-	ErrorValue  error
+	kind           FieldKind
+	key            string
+	stringValue    string
+	stringsValue   []string
+	intValue       int64
+	byteValue      []byte
+	interfaceValue interface{}
+	errorValue     error
 }
 
 type FieldKind int
 
 const (
 	StringField FieldKind = iota + 1
+	StringsField
 	IntField
 	BoolField
 	ByteStringField
@@ -24,41 +26,49 @@ const (
 
 func Any(key string, value interface{}) Field {
 	return Field{
-		Kind:       InterfaceField,
-		Key:        key,
-		IfaceValue: value,
+		kind:           InterfaceField,
+		key:            key,
+		interfaceValue: value,
 	}
 }
 
 func Error(err error) Field {
 	return Field{
-		Kind:       ErrorField,
-		Key:        "error",
-		ErrorValue: err,
+		kind:       ErrorField,
+		key:        "error",
+		errorValue: err,
 	}
 }
 
 func NamedError(key string, err error) Field {
 	return Field{
-		Kind:       NamedErrorField,
-		Key:        key,
-		ErrorValue: err,
+		kind:       NamedErrorField,
+		key:        key,
+		errorValue: err,
 	}
 }
 
 func String(key, value string) Field {
 	return Field{
-		Kind:        StringField,
-		Key:         key,
-		StringValue: value,
+		kind:        StringField,
+		key:         key,
+		stringValue: value,
+	}
+}
+
+func Strings(key string, value []string) Field {
+	return Field{
+		key:          key,
+		kind:         StringsField,
+		stringsValue: value,
 	}
 }
 
 func Int(key string, value int) Field {
 	return Field{
-		Kind:     IntField,
-		Key:      key,
-		IntValue: int64(value),
+		kind:     IntField,
+		key:      key,
+		intValue: int64(value),
 	}
 }
 
@@ -68,16 +78,16 @@ func Bool(key string, value bool) Field {
 		integer = 1
 	}
 	return Field{
-		Kind:     BoolField,
-		Key:      key,
-		IntValue: integer,
+		kind:     BoolField,
+		key:      key,
+		intValue: integer,
 	}
 }
 
 func ByteString(key string, value []byte) Field {
 	return Field{
-		Kind:      ByteStringField,
-		Key:       key,
-		ByteValue: value,
+		kind:      ByteStringField,
+		key:       key,
+		byteValue: value,
 	}
 }
